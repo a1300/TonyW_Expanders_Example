@@ -4,6 +4,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace TonyW_Expanders_Example
@@ -58,8 +61,14 @@ namespace TonyW_Expanders_Example
 
             //Some dummy Data
             AvailableColumns.Add(new SimpleModel() { FirstName = "Louise", LastName="Burling" });
-            AvailableColumns.Add(new SimpleModel() { FirstName = "Hana", LastName = "Gregor" });
+            AvailableColumns.Add(new SimpleModel() { FirstName = "Hana", LastName = "Burling" });
             AvailableColumns.Add(new SimpleModel() { FirstName = "Don", LastName = "Giovanni" });
+
+            //ListBox listBoxLeft = UIHelper.FindChild<ListBox>(Application.Current.MainWindow, "leftListBox");
+
+            //CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(listBoxLeft.ItemsSource);
+            //PropertyGroupDescription groupDescription = new PropertyGroupDescription("Sex");
+            //view.GroupDescriptions.Add(groupDescription);
         }
 
         #region Commands

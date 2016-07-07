@@ -7,6 +7,27 @@
         mc:Ignorable="d"
         Title="COLUMNS" Height="350" Width="525">
     <Grid>
+        <Grid.Resources>
+            <Style x:Key="ContainerStyle" TargetType="{x:Type GroupItem}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Expander IsExpanded="True">
+                                <ItemsPresenter />
+                            </Expander>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <CollectionViewSource x:Key="GroupedItems" Source="{Binding AvailableColumns}">
+                <CollectionViewSource.GroupDescriptions>
+                    <PropertyGroupDescription PropertyName="LastName"/>
+                </CollectionViewSource.GroupDescriptions>
+            </CollectionViewSource>
+        </Grid.Resources>
+        
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
@@ -30,8 +51,32 @@
 
 
         <ListBox Grid.Row="1" Grid.Column="0" Margin="5"
-                 ItemsSource="{Binding AvailableColumns, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 SelectedItem="{Binding CurrentItemLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                 ItemsSource="{Binding Source={StaticResource GroupedItems}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 SelectedItem="{Binding CurrentItemLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 >
+            <ListBox.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.ContainerStyle>
+                        <Style TargetType="{x:Type GroupItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type GroupItem}">
+                                        <GroupBox Header="MyHeader" >
+                                            <ItemsPresenter />
+                                        </GroupBox>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GroupStyle.ContainerStyle>
+                </GroupStyle>
+            </ListBox.GroupStyle>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding LastName}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
         <ListBox Grid.Row="1" Grid.Column="2" Margin="5"
                  ItemsSource="{Binding VisibleColumns, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
