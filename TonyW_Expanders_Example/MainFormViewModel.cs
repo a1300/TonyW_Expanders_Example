@@ -63,12 +63,6 @@ namespace TonyW_Expanders_Example
             AvailableColumns.Add(new SimpleModel() { FirstName = "Louise", LastName="Burling" });
             AvailableColumns.Add(new SimpleModel() { FirstName = "Hana", LastName = "Burling" });
             AvailableColumns.Add(new SimpleModel() { FirstName = "Don", LastName = "Giovanni" });
-
-            //ListBox listBoxLeft = UIHelper.FindChild<ListBox>(Application.Current.MainWindow, "leftListBox");
-
-            //CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(listBoxLeft.ItemsSource);
-            //PropertyGroupDescription groupDescription = new PropertyGroupDescription("Sex");
-            //view.GroupDescriptions.Add(groupDescription);
         }
 
         #region Commands
