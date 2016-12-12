@@ -1,36 +1,36 @@
-﻿<Window x:Class="TonyW_Expanders_Example.MainWindow"
+﻿<Window x:Class="OptionsDialog.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TonyW_Expanders_Example"
+        xmlns:local="clr-namespace:OptionsDialog"
         mc:Ignorable="d"
-        Title="COLUMNS" Height="350" Width="525">
+        Title="PERSON OPTION DIALOG" Height="350" Width="525">
     <Grid>
         <Grid.Resources>
-            <Style x:Key="ContainerStyle" TargetType="{x:Type GroupItem}">
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate>
-                            <Expander IsExpanded="True">
-                                <ItemsPresenter />
-                            </Expander>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
 
             <!--took from user Michael Stoll http://stackoverflow.com/questions/2595669/bind-listbox-in-wpf-with-grouping/2598299#2598299 -->
             <CollectionViewSource x:Key="GroupedItemsLeft" Source="{Binding AvailableColumns}">
                 <CollectionViewSource.GroupDescriptions>
-                    <PropertyGroupDescription PropertyName="LastName"/>
+                    <PropertyGroupDescription PropertyName="Type"/>
                 </CollectionViewSource.GroupDescriptions>
             </CollectionViewSource>
             <CollectionViewSource x:Key="GroupedItemsRight" Source="{Binding VisibleColumns}">
                 <CollectionViewSource.GroupDescriptions>
-                    <PropertyGroupDescription PropertyName="LastName"/>
+                    <PropertyGroupDescription PropertyName="Type"/>
                 </CollectionViewSource.GroupDescriptions>
             </CollectionViewSource>
+
+            <Style x:Key="textBlockHeadingStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="VerticalAlignment" Value="Bottom"/>
+                <Setter Property="FontSize" Value="15"/>
+                <Setter Property="Margin" Value="5,5,5,2"/>
+            </Style>
+
+            <DataTemplate x:Key="listBoxItemTemplate">
+                <TextBlock Text="{Binding Name}"/>
+            </DataTemplate>
             
         </Grid.Resources>
         
@@ -46,21 +46,17 @@
         </Grid.ColumnDefinitions>
 
         <TextBlock Grid.Row="0" Grid.Column="0"
-                   HorizontalAlignment="Left" 
-                   VerticalAlignment="Center"
-                   Text="Available Columns"
-                   Margin="5"/>
+                   Style="{StaticResource textBlockHeadingStyle}"
+                   Text="Available Columns"/>
         <TextBlock Grid.Row="0" Grid.Column="2"
-                   HorizontalAlignment="Left" 
-                   VerticalAlignment="Center"
                    Text="Visible Columns"
-                   Margin="5"/>
+                   Style="{StaticResource textBlockHeadingStyle}"/>
 
         <!--took from user Michael Stoll http://stackoverflow.com/questions/2595669/bind-listbox-in-wpf-with-grouping/2598299#2598299 -->
         <ListBox Grid.Row="1" Grid.Column="0" Margin="5"
                  ItemsSource="{Binding Source={StaticResource GroupedItemsLeft}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  SelectedItem="{Binding CurrentItemLeft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 >
+                 ItemTemplate="{StaticResource listBoxItemTemplate}">
             <ListBox.GroupStyle>
                 <GroupStyle>
                     <GroupStyle.ContainerStyle>
@@ -78,18 +74,13 @@
                     </GroupStyle.ContainerStyle>
                 </GroupStyle>
             </ListBox.GroupStyle>
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding FirstName}"/>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
         </ListBox>
 
         <!--took from user Michael Stoll http://stackoverflow.com/questions/2595669/bind-listbox-in-wpf-with-grouping/2598299#2598299 -->
         <ListBox Grid.Row="1" Grid.Column="2" Margin="5" x:Name="RightListBox"
                  ItemsSource="{Binding Source={StaticResource GroupedItemsRight}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  SelectedItem="{Binding CurrentItemRight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 >
+                 ItemTemplate="{StaticResource listBoxItemTemplate}">
             <ListBox.GroupStyle>
                 <GroupStyle>
                     <GroupStyle.ContainerStyle>
@@ -107,15 +98,7 @@
                     </GroupStyle.ContainerStyle>
                 </GroupStyle>
             </ListBox.GroupStyle>
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding FirstName}"/>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
         </ListBox>
-
-
-
 
         <StackPanel Grid.Row="1" Grid.Column="1"
                     HorizontalAlignment="Stretch"
@@ -128,7 +111,6 @@
                     Margin="0,4,0,0"
                     Command="{Binding ShiftToLeftCommand}"/>
         </StackPanel>
-
 
     </Grid>
 </Window>

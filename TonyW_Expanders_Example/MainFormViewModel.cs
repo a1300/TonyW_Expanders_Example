@@ -9,31 +9,25 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 
-namespace TonyW_Expanders_Example
+namespace OptionsDialog
 {
     public class MainFormViewModel : BindableObject
     {
-        public ObservableCollection<SimpleModel> AvailableColumns { get; set; }
-        public ObservableCollection<SimpleModel> VisibleColumns { get; set; }
+        public ObservableCollection<Category> AvailableColumns { get; set; }
+        public ObservableCollection<Category> VisibleColumns { get; set; }
 
-        public SimpleModel CurrentItemLeft
+        public Category CurrentItemLeft
         {
-            get
-            {
-                return _currentItemLeft;
-            }
+            get { return _currentItemLeft; }
             set
             {
                 _currentItemLeft = value;
                 RaisePropertyChanged("CurrentItemLeft");
             }
         }
-        public SimpleModel CurrentItemRight
+        public Category CurrentItemRight
         {
-            get
-            {
-                return _currentItemRight;
-            }
+            get { return _currentItemRight; }
             set
             {
                 _currentItemRight = value;
@@ -46,8 +40,8 @@ namespace TonyW_Expanders_Example
 
         public MainFormViewModel()
         {
-            AvailableColumns = new ObservableCollection<SimpleModel>();
-            VisibleColumns = new ObservableCollection<SimpleModel>();
+            AvailableColumns = new ObservableCollection<Category>();
+            VisibleColumns = new ObservableCollection<Category>();
 
             ShiftToRightCommand = new RelayCommand(ExecuteShiftToRight, CanExecuteShiftToRight);
             ShiftToLeftCommand = new RelayCommand(ExecuteShiftToLeft, CanExecuteShiftToLeft);
@@ -60,9 +54,12 @@ namespace TonyW_Expanders_Example
             //load your data from a db or webservice
 
             //Some dummy Data
-            AvailableColumns.Add(new SimpleModel() { FirstName = "Louise", LastName="Burling" });
-            AvailableColumns.Add(new SimpleModel() { FirstName = "Hana", LastName = "Burling" });
-            AvailableColumns.Add(new SimpleModel() { FirstName = "Don", LastName = "Giovanni" });
+            AvailableColumns.Add(new Category() { Name = "Thumbnail", Type = CategoryType.Image });
+            AvailableColumns.Add(new Category() { Name = "LastName", Type = CategoryType.GeneralInformation });
+            AvailableColumns.Add(new Category() { Name = "ZIP", Type = CategoryType.AddressData });
+            AvailableColumns.Add(new Category() { Name = "Address", Type = CategoryType.AddressData });
+            AvailableColumns.Add(new Category() { Name = "FirstName", Type = CategoryType.GeneralInformation });
+            AvailableColumns.Add(new Category() { Name = "Portrait", Type = CategoryType.Image });
         }
 
         #region Commands
@@ -104,8 +101,8 @@ namespace TonyW_Expanders_Example
 
 
         #region Private/Protected
-        private SimpleModel _currentItemLeft;
-        private SimpleModel _currentItemRight;
+        private Category _currentItemLeft;
+        private Category _currentItemRight;
         #endregion
     }
 }

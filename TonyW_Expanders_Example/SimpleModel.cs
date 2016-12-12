@@ -3,17 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
-namespace TonyW_Expanders_Example
+namespace OptionsDialog
 {
-    public class SimpleModel
+    public enum CategoryType
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        Image = 0,
+        GeneralInformation = 1,
+        AddressData
+    }
+
+    public class Category
+    {
+        public string Name { get; set; }
+        public CategoryType Type { get; set; }
 
         public override string ToString()
         {
-            return (LastName == null && FirstName == null) ? "You haven't specified an Name" : String.Format("{0}, {1}", LastName, FirstName);
+            return Name ?? "No Category-Name";
         }
     }
 }

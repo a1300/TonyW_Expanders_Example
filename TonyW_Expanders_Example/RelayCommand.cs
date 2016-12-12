@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace TonyW_Expanders_Example
+namespace OptionsDialog
 {
     /// <summary>
     /// From https://msdn.microsoft.com/en-us/magazine/dd419663.aspx#id0090030

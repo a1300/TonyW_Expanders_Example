@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace TonyW_Expanders_Example
+namespace OptionsDialog
 {
     /// <summary>
     /// Interaction logic for App.xaml
